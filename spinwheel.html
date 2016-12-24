@@ -26,10 +26,10 @@ try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag
 		return ((this%n)+n)%n;
 	}</script><script type=text/javascript>venues = {
 		
-		"66271"   : "1.5 million $",
-		"66270"  : "Alien Isolation",
-		"66272"   : "IPhone 7",
-		"66273"   : "Tesla Model S",
+		"66272"   : "1.5 million $",
+		"66273"  : "Amazing Video Game",
+		"66271"   : "IPhone 7",
+		"66270"   : "Tesla Model S",
 
 	};
 
@@ -79,7 +79,7 @@ try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag
 		timerHandle : 0,
 		timerDelay : 33,
 
-		angleCurrent : 0,
+		angleCurrent : 1.5,
 		angleDelta : 0,
 
 		size : 290,
@@ -129,29 +129,28 @@ try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag
 			var progress = 0;
 			var finished = false;
 
-			if (duration < wheel.upTime) {
+			if (duration < -100) {
 				progress = duration / wheel.upTime;
-				wheel.angleDelta = wheel.maxSpeed
-						* Math.sin(progress * Math.PI / 2);
+				//wheel.angleCurrent = wheel.maxSpeed* Math.sin(progress * Math.PI / 2);
+				wheel.angleCurrent = -5*progress*progress + 10;
 			} else {
 				progress = duration / wheel.downTime;
-				wheel.angleDelta = wheel.maxSpeed
-						* Math.sin(progress * Math.PI / 2 + Math.PI / 2);
-				if (progress >= 1)
+				//wheel.angleCurrent = wheel.maxSpeed* Math.sin(progress * Math.PI / 2 + Math.PI / 2);
+				wheel.angleCurrent = 12*Math.pow(progress+0.7,-5.5) + 1.1;
+				if (wheel.angleCurrent < 0.35 + 1.1)
 					finished = true;
 			}
 
-			wheel.angleCurrent += wheel.angleDelta;
-			while (wheel.angleCurrent >= Math.PI * 2)
-				// Keep the angle in a reasonable range
-				wheel.angleCurrent -= Math.PI * 2;
+			// wheel.angleCurrent += wheel.angleDelta;
+			// while (wheel.angleCurrent >= Math.PI * 2)
+			// 	// Keep the angle in a reasonable range
+			// 	wheel.angleCurrent -= Math.PI * 2;
 
 			if (finished) {
 				clearInterval(wheel.timerHandle);
 				wheel.timerHandle = 0;
 				wheel.angleDelta = 0;
-
-				$("#counter").html((wheel.frames / duration * 1000) + " FPS");
+				$('#giftLink').show(600);
 			}
 
 			/*
@@ -204,7 +203,7 @@ try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag
 			// Ensure we start mid way on a item
 			//var r = Math.floor(Math.random() * wheel.segments.length);
 			var r = 0;
-			wheel.angleCurrent = ((r + 0.5) / wheel.segments.length) * Math.PI * 2;
+			wheel.angleCurrent = ((r + 0.5) / wheel.segments.length) * Math.PI * 2 +1.5;
 
 			var segments = wheel.segments;
 			var len      = segments.length;
@@ -253,6 +252,7 @@ try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag
 			ctx.fill();
 
 			// Which segment is being pointed to?
+
 			var i = wheel.segments.length - Math.floor((wheel.angleCurrent / (Math.PI * 2))	* wheel.segments.length) - 1;
 
 			// Now draw the winning name
@@ -355,6 +355,10 @@ try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag
 	window.onload = function() {
 		wheel.init();
 
+		$('#giftLink').hide(50);
+		$('#venues').hide(50);
+		
+
 		var segments = new Array();
 		$.each($('#venues input:checked'), function(key, cbox) {
 			segments.push( cbox.value );
@@ -367,7 +371,27 @@ try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag
 		setTimeout(function() {
 			window.scrollTo(0, 1);
 		}, 0);
-	}</script><body><div id=venues style=float:left><ul/></div><div id=wheel><canvas id=canvas width=1000 height=600></canvas></div><div id=stats><div id=counter></div></div><script type="text/javascript">
+	}</script>
+	<body>
+	<div id=venues style=float:left><ul/>
+	</div>
+	<div id=wheel>
+	<canvas id=canvas width=1000 height=600>
+		
+	</canvas>
+	</div>
+	<div id=stats>
+	<div id=counter>
+		
+	</div>
+	<div id=giftLink> 
+	<a href="http://store.steampowered.com/email/gift?sparams=eJyFkD1rwzAQhv-K8FZIguXGdpwpg1Noh9BS6JTlIp1s1fbJSLKpKf3vPZdCxy43PO_HHfeZNBOGOEIIHS7JMckL-VCnmczSOsvr4pxsEkuzjejHHhb0BAOyDcYeo6M_FQewPWjtMQTWO6QoZZWempXvlBvY2lgTEX8bnlvb23FE5gNnoFnhI4mL7bevYClu3ywprtkIcsIRCgUkWgQvFjeJoDzCsBNXutKTW3D6EBeHvTjecWHgmB14cOWZ3t2yMtsQxMmva16m1bBeP4LqeLXVTMsq31c_Z87oYYYIvoXQsmLQ7CssDZQoq6q8l6ku0_yWQSHzgzEHraTSBm8cju7_T3x9A6yze_w">
+		<center><b>RECEVOIR LE CADEAU ! </b></center>
+	</a>
+	</div>
+
+	</div>
+	<script type="text/javascript">
 /* <![CDATA[ */
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-136478-5']);
